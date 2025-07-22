@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextEdge IT Service - Policies</title>
+    <style>
+        :root {
+            --navy-blue: #0A2463;
+            --navy-blue-dark: #071b4d;
+            --navy-blue-light: #1a3a8f;
+            --accent-orange: #FF6B35;
+            --accent-orange-dark: #e05a2b;
+            --accent-orange-light: #ff8c5a;
+            --light-gray: #f4f6f8;
+            --medium-gray: #e0e4e8;
+            --dark-gray: #333333;
+            --text-gray: #555555;
+            --white: #ffffff;
+            --black: #000000;
+            
+            --font-heading: 'Inter', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--text-gray);
+            line-height: 1.7;
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--navy-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--accent-orange);
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .section-bg {
+            background-color: var(--light-gray);
+        }
+        
+        /* Header Styles */
+        #header {
+            background: var(--white);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+            color: var(--accent-orange);
+            margin-right: 8px;
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--navy-blue);
+        }
+        
+        .logo-text span {
+            color: var(--accent-orange);
+        }
+        
+        /* Main Content Styles */
+        .policy-container, .terms-container, .services-container {
+            margin-top: 80px;
+            padding: 40px 0;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--navy-blue);
+        }
+        
+        .page-title small {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+        
+        h2.section-title {
+            color: var(--accent-orange);
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--medium-gray);
+        }
+        
+        h3.subsection-title {
+            color: var(--navy-blue);
+            margin: 30px 0 15px;
+        }
+        
+        ul.feature-list, ul.benefit-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        ul.feature-list li, ul.benefit-list li {
+            margin-bottom: 10px;
+        }
+        
+        .contact-info {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .service-card {
+            background: var(--white);
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .email-link {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+        
+        /* Footer Styles */
+        #footer {
+            background: var(--navy-blue);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .policy-container, .terms-container, .services-container {
+                margin-top: 120px;
+            }
+        }
+    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-cogs logo-icon"></i>
+                <div class="logo-text">NextEdge<span>.</span></div>
+            </a>
+            <nav>
+                <a href="index.html">Home</a> |
+                <a href="#privacy">Privacy</a> |
+                <a href="#terms">Terms</a> |
+                <a href="#services">Services</a> |
+                <a href="index.html#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Privacy Policy -->
+        <section id="privacy" class="policy-container">
+            <div class="container">
+                <h1 class="page-title">Privacy Policy <small>Last Updated: July 22, 2023</small></h1>
+                
+                <h2 class="section-title">1. Introduction</h2>
+                <p>NextEdge IT Service ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website www.nextedgeitservice.com and use our services. Please read this policy carefully. By accessing our website or using our services, you agree to the collection and use of information in accordance with this policy.</p>
+                
+                <h2 class="section-title">2. Information We Collect</h2>
+                <p>We may collect the following types of information:</p>
+                
+                <h3 class="subsection-title">Personal Information:</h3>
+                <ul class="feature-list">
+                    <li>Name, email address, phone number</li>
+                    <li>Company name and job title</li>
+                    <li>Payment information (processed securely via third-party processors)</li>
+                    <li>Contact preferences</li>
+                </ul>
+                
+                <h3 class="subsection-title">Technical Information:</h3>
+                <ul class="feature-list">
+                    <li>IP address, browser type, operating system</li>
+                    <li>Pages visited, time spent on site, referral sources</li>
+                    <li>Cookies and tracking technologies data</li>
+                </ul>
+                
+                <h3 class="subsection-title">Service Usage Data:</h3>
+                <ul class="feature-list">
+                    <li>IT system configurations</li>
+                    <li>Service request histories</li>
+                    <li>Performance metrics</li>
+                </ul>
+                
+                <h2 class="section-title">3. How We Use Your Information</h2>
+                <p>We use collected information to:</p>
+                <ul class="feature-list">
+                    <li>Provide and maintain our services</li>
+                    <li>Process transactions and send invoices</li>
+                    <li>Respond to inquiries and offer customer support</li>
+                    <li>Improve our website and services</li>
+                    <li>Send technical notices, updates, and security alerts</li>
+                    <li>Monitor and analyze usage trends</li>
+                    <li>Prevent fraudulent activities and enhance security</li>
+                    <li>Comply with legal obligations</li>
+                </ul>
+                
+                <h2 class="section-title">4. Data Sharing and Disclosure</h2>
+                <p>We may share information with:</p>
+                <ul class="feature-list">
+                    <li>Service providers who assist in our operations (under strict confidentiality agreements)</li>
+                    <li>Business partners for integrated service offerings</li>
+                    <li>Legal authorities when required by law or to protect our rights</li>
+                    <li>Successor entities in case of merger or acquisition</li>
+                </ul>
+                <p>We never sell your personal information to third parties.</p>
+                
+                <h2 class="section-title">5. Data Security</h2>
+                <p>We implement robust security measures including:</p>
+                <ul class="feature-list">
+                    <li>Encryption of sensitive data</li>
+                    <li>Regular security audits</li>
+                    <li>Access controls and authentication protocols</li>
+                    <li>Employee training on data protection</li>
+                    <li>ISO 27001 certified security practices</li>
+                </ul>
+                
+                <h2 class="section-title">6. Data Retention</h2>
+                <p>We retain personal information only as long as necessary to:</p>
+                <ul class="feature-list">
+                    <li>Fulfill the purposes outlined in this policy</li>
+                    <li>Comply with legal obligations</li>
+                    <li>Resolve disputes</li>
+                    <li>Enforce our agreements</li>
+                </ul>
+                
+                <h2 class="section-title">7. Your Rights</h2>
+                <p>You have the right to:</p>
+                <ul class="feature-list">
+                    <li>Access and receive copies of your personal data</li>
+                    <li>Request correction of inaccurate information</li>
+                    <li>Request deletion of your data (subject to legal limitations)</li>
+                    <li>Object to or restrict certain processing activities</li>
+                    <li>Withdraw consent (where applicable)</li>
+                    <li>Lodge complaints with regulatory authorities</li>
+                </ul>
+                <p>To exercise these rights, contact us at <a href="mailto:nepal@technologist.com" class="email-link">nepal@technologist.com</a>.</p>
+                
+                <h2 class="section-title">8. International Data Transfers</h2>
+                <p>As a Nepal-based company with global clients, data may be transferred to and processed in countries outside your jurisdiction. We ensure all transfers comply with applicable data protection laws.</p>
+                
+                <h2 class="section-title">9. Cookies and Tracking Technologies</h2>
+                <p>We use cookies to:</p>
+                <ul class="feature-list">
+                    <li>Enhance user experience</li>
+                    <li>Analyze site usage</li>
+                    <li>Remember preferences</li>
+                    <li>Deliver targeted advertisements</li>
+                </ul>
+                <p>You can control cookie settings through your browser.</p>
+                
+                <h2 class="section-title">10. Children's Privacy</h2>
+                <p>Our services are not directed to individuals under 16. We do not knowingly collect personal information from children.</p>
+                
+                <h2 class="section-title">11. Changes to This Policy</h2>
+                <p>We may update this policy periodically. The updated version will be posted on our website with a revised "Last Updated" date.</p>
+                
+                <h2 class="section-title">12. Contact Us</h2>
+                <div class="contact-info">
+                    <p>For privacy-related inquiries:</p>
+                    <ul class="feature-list">
+                        <li>Email: <a href="mailto:nepal@technologist.com" class="email-link">nepal@technologist.com</a></li>
+                        <li>Phone: +977 1 1234567</li>
+                        <li>Address: 123 Tech Street, New Baneshwor, Kathmandu, Nepal</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terms and Conditions -->
+        <section id="terms" class="terms-container section-bg">
+            <div class="container">
+                <h1 class="page-title">Terms and Conditions <small>Effective Date: July 22, 2025</small></h1>
+                
+                <h2 class="section-title">1. Acceptance of Terms</h2>
+                <p>By accessing or using services from NextEdge IT Service ("NextEdge"), you agree to be bound by these Terms and Conditions. If you disagree with any part, you may not access our services.</p>
+                
+                <h2 class="section-title">2. Service Description</h2>
+                <p>NextEdge provides managed IT services including but not limited to:</p>
+                <ul class="feature-list">
+                    <li>24/7 IT monitoring and support</li>
+                    <li>Cybersecurity solutions</li>
+                    <li>Cloud computing services</li>
+                    <li>Microsoft 365 implementation</li>
+                    <li>IT consulting</li>
+                    <li>Backup and disaster recovery</li>
+                </ul>
+                
+                <h2 class="section-title">3. Client Responsibilities</h2>
+                <p>Clients agree to:</p>
+                <ul class="feature-list">
+                    <li>Provide accurate account information</li>
+                    <li>Maintain necessary hardware/software</li>
+                    <li>Designate a primary contact for service coordination</li>
+                    <li>Pay invoices promptly</li>
+                    <li>Notify us of any service issues</li>
+                </ul>
+                
+                <h2 class="section-title">4. Service Limitations</h2>
+                <p>NextEdge is not responsible for:</p>
+                <ul class="feature-list">
+                    <li>Pre-existing conditions not disclosed during onboarding</li>
+                    <li>Issues caused by unauthorized modifications</li>
+                    <li>Problems resulting from client negligence</li>
+                    <li>Force majeure events (natural disasters, etc.)</li>
+                </ul>
+                
+                <h2 class="section-title">5. Payment Terms</h2>
+                <ul class="feature-list">
+                    <li>Fees are outlined in service agreements</li>
+                    <li>Invoices are due within 15 days of receipt</li>
+                    <li>Late payments may incur 1.5% monthly interest</li>
+                    <li>Service suspension may occur after 30 days of non-payment</li>
+                </ul>
+                
+                <h2 class="section-title">6. Intellectual Property</h2>
+                <p>All software, documentation, and methodologies provided by NextEdge remain our exclusive property. Clients receive limited usage rights for the duration of service agreements.</p>
+                
+                <h2 class="section-title">7. Confidentiality</h2>
+                <p>Both parties agree to protect confidential information using reasonable security measures and not disclose it to third parties without consent, except as required by law.</p>
+                
+                <h2 class="section-title">8. Service Level Agreements (SLAs)</h2>
+                <p>Specific SLAs are detailed in individual service contracts, including:</p>
+                <ul class="feature-list">
+                    <li>Response times for critical issues (typically ≤ 1 hour)</li>
+                    <li>Resolution timeframes</li>
+                    <li>Uptime guarantees (typically 99.9% for managed services)</li>
+                </ul>
+                
+                <h2 class="section-title">9. Termination</h2>
+                <p>Either party may terminate services with 30 days written notice. Early termination fees may apply for contract-based services.</p>
+                
+                <h2 class="section-title">10. Limitation of Liability</h2>
+                <p>NextEdge's total liability for any claim shall not exceed the fees paid by the client during the 6 months preceding the claim. We are not liable for indirect, incidental, or consequential damages.</p>
+                
+                <h2 class="section-title">11. Governing Law</h2>
+                <p>These terms shall be governed by the laws of Nepal. Any disputes shall be resolved in Kathmandu courts.</p>
+                
+                <h2 class="section-title">12. Amendments</h2>
+                <p>NextEdge may modify these terms at any time. Continued use of services constitutes acceptance of revised terms.</p>
+                
+                <h2 class="section-title">13. Contact Information</h2>
+                <div class="contact-info">
+                    <p>For questions about these terms:</p>
+                    <ul class="feature-list">
+                        <li>Email: <a href="mailto:connect@technologist.com" class="email-link">connect@technologist.com</a></li>
+                        <li>Phone: +977 1 1234567 (Ext. 2)</li>
+                        <li>Address: 123 Tech Street, New Baneshwor, Kathmandu, Nepal</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="services-container">
+            <div class="container">
+                <h1 class="page-title">Our Services</h1>
+                
+                <div class="service-card">
+                    <h2 class="section-title">1. Managed IT Services</h2>
+                    <p><strong>Comprehensive IT management for stress-free operations</strong></p>
+                    <p>NextEdge provides complete IT infrastructure management, allowing you to focus on core business activities while we handle your technology needs.</p>
+                    
+                    <h3 class="subsection-title">Key Features:</h3>
+                    <ul class="feature-list">
+                        <li>24/7 monitoring of networks, servers, and devices</li>
+                        <li>Unlimited remote helpdesk support</li>
+                        <li>Proactive maintenance and patch management</li>
+                        <li>Hardware and software inventory management</li>
+                        <li>Monthly performance reporting</li>
+                        <li>Vendor coordination for third-party systems</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Benefits:</h3>
+                    <ul class="benefit-list">
+                        <li>80% reduction in downtime incidents</li>
+                        <li>Predictable IT budgeting with fixed monthly costs</li>
+                        <li>Access to enterprise-grade tools at SME prices</li>
+                        <li>Scalable solutions that grow with your business</li>
+                        <li>Local Nepali support with cultural understanding</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Technical Specifications:</h3>
+                    <ul class="feature-list">
+                        <li>RMM (Remote Monitoring and Management) tools</li>
+                        <li>PSA (Professional Services Automation) platform</li>
+                        <li>Automated alerting systems</li>
+                        <li>Customized reporting dashboards</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Support Contacts:</h3>
+                    <ul class="feature-list">
+                        <li>General Inquiries: <a href="mailto:ict@technologist.com" class="email-link">ict@technologist.com</a></li>
+                        <li>Emergency Support: <a href="mailto:email@technologist.com" class="email-link">email@technologist.com</a></li>
+                        <li>Account Management: <a href="mailto:bijay@technologist.com" class="email-link">bijay@technologist.com</a></li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <h2 class="section-title">2. Cybersecurity Solutions</h2>
+                    <p><strong>Advanced protection against evolving digital threats</strong></p>
+                    <p>Our multi-layered security approach protects your business from malware, ransomware, phishing, and other cyber threats prevalent in Nepal's digital landscape.</p>
+                    
+                    <h3 class="subsection-title">Key Features:</h3>
+                    <ul class="feature-list">
+                        <li>Next-generation firewall with threat intelligence</li>
+                        <li>Endpoint Detection and Response (EDR)</li>
+                        <li>Email security with advanced phishing protection</li>
+                        <li>Vulnerability scanning and penetration testing</li>
+                        <li>Dark web monitoring for credential leaks</li>
+                        <li>Security awareness training programs</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Benefits:</h3>
+                    <ul class="benefit-list">
+                        <li>Real-time threat detection and response</li>
+                        <li>Compliance with ISO 27001 and data protection regulations</li>
+                        <li>Reduced risk of costly security breaches</li>
+                        <li>Improved security posture with regular audits</li>
+                        <li>Customized security policies for Nepali business needs</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Technical Components:</h3>
+                    <ul class="feature-list">
+                        <li>AI-powered threat detection algorithms</li>
+                        <li>SIEM (Security Information and Event Management)</li>
+                        <li>Multi-factor authentication implementation</li>
+                        <li>Encryption for data at rest and in transit</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Security Contacts:</h3>
+                    <ul class="feature-list">
+                        <li>Security Operations Center: <a href="mailto:technology@technologist.com" class="email-link">technology@technologist.com</a></li>
+                        <li>Compliance Inquiries: <a href="mailto:nepal@technologist.com" class="email-link">nepal@technologist.com</a></li>
+                        <li>Incident Reporting: <a href="mailto:nepalbd@email.com" class="email-link">nepalbd@email.com</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Additional service cards for other services -->
+                <!-- Microsoft 365 & Copilot, Cloud Solutions, IT Consulting, Backup & Disaster Recovery -->
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="index.html">Home</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="#terms">Terms & Conditions</a> |
+                <a href="#services">Services</a> |
+                <a href="index.html#contact">Contact Us</a>
+            </div>
+            <p>&copy; 2025 NextEdge IT Service. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
