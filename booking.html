@@ -4,14 +4,410 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking - Bijay IT Solutions</title>
-    <link rel="stylesheet" href="main-styles.css">
-    <link rel="stylesheet" href="responsive.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f1f5f9;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        #header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        #navbar ul {
+            display: flex;
+            list-style: none;
+        }
+
+        #navbar ul li {
+            margin: 0 10px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Booking Form */
+        #booking {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .alert i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Footer */
+        #footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about h4,
+        .footer-links h4,
+        .footer-contact h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-about h4::after,
+        .footer-links h4::after,
+        .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-about h4 span {
+            color: var(--primary);
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-links ul li a i {
+            margin-right: 8px;
+            font-size: 12px;
+            }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        .footer-contact p i {
+            margin-right: 10px;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .footer-contact p a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-contact p a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .copyright {
+            color: #94a3b8;
+        }
+
+        .legal-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .legal-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            #navbar ul {
+                display: none;
+            }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .header-cta {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #booking {
+                padding: 30px 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .legal-links {
+                margin-top: 15px;
+            }
+        }
+
+        /* Image Styles */
+        .booking-image {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .booking-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <!-- ======= Header ======= -->
     <header id="header">
-        <div class="header-container">
+        <div class="container header-container">
             <a href="index.html" class="logo">
                 <i class="fas fa-cogs logo-icon"></i>
                 <div class="logo-text">Bijay IT Solutions<span>.</span></div>
@@ -41,11 +437,25 @@
                 <h2>Book a Service</h2>
                 <p>Fill out the form below to book a service with us. We'll get back to you as soon as possible.</p>
             </div>
+            
+            <!-- Added image section -->
+            <div class="booking-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="IT Support Team" />
+            </div>
+            
             <form id="bookingForm" action="https://formspree.io/f/xrbyelvn" method="POST" class="mt-4">
                 <div class="form-group">
                     <label for="service">Select a Service</label>
                     <select name="service" id="service" class="form-control" required>
                         <option value="">--Please choose a service--</option>
+                        <option value="Managed IT Services">Managed IT Services</option>
+                        <option value="Cybersecurity Solutions">Cybersecurity Solutions</option>
+                        <option value="Cloud Solutions">Cloud Solutions</option>
+                        <option value="Network Infrastructure">Network Infrastructure</option>
+                        <option value="IT Consulting">IT Consulting</option>
+                        <option value="Data Backup & Recovery">Data Backup & Recovery</option>
+                        <option value="Software Development">Software Development</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -72,7 +482,7 @@
             </form>
 
             <div id="formSuccess" class="alert alert-success mt-3" style="display: none;">
-                <i class="fas fa-check-circle"></i> Your booking request has been submitted successfully. We’ll contact you soon!
+                <i class="fas fa-check-circle"></i> Your booking request has been submitted successfully. We'll contact you soon!
             </div>
 
             <div id="formError" class="alert alert-danger mt-3" style="display: none;">
@@ -98,8 +508,7 @@
                         <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-
-                <div class="footer-links">
+                   <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
@@ -141,24 +550,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const servicesDropdown = document.getElementById('service');
+            // Mobile navigation toggle
+            const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+            const navbar = document.getElementById('navbar');
+            
+            mobileNavToggle.addEventListener('click', function() {
+                navbar.classList.toggle('active');
+            });
 
-            fetch('services.html')
-                .then(response => response.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const serviceTitles = doc.querySelectorAll('.service-detail-page h3');
-
-                    serviceTitles.forEach(title => {
-                        const option = document.createElement('option');
-                        option.value = title.innerText;
-                        option.textContent = title.innerText;
-                        servicesDropdown.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching services:', error));
-
+            // Form submission
             const form = document.getElementById('bookingForm');
             const formSuccess = document.getElementById('formSuccess');
             const formError = document.getElementById('formError');
@@ -176,7 +576,7 @@
                     }
                 }).then(response => {
                     if (response.ok) {
-                        formSuccess.style.display = 'block';
+                        formSuccess.style.display = 'flex';
                         formError.style.display = 'none';
                         form.reset();
                     } else {
@@ -186,13 +586,13 @@
                             } else {
                                 formError.textContent = 'Oops! There was a problem submitting your form'
                             }
-                            formError.style.display = 'block';
+                            formError.style.display = 'flex';
                             formSuccess.style.display = 'none';
                         })
                     }
                 }).catch(error => {
                     formError.textContent = 'Oops! There was a problem submitting your form'
-                    formError.style.display = 'block';
+                    formError.style.display = 'flex';
                     formSuccess.style.display = 'none';
                 });
             });
