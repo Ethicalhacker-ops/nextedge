@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Viewer | NextEdge IT Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --navy-blue: #0A2463;
+            --navy-blue-dark: #071b4d;
+            --navy-blue-light: #1a3a8f;
+            --accent-orange: #FF6B35;
+            --accent-orange-dark: #e05a2b;
+            --accent-orange-light: #ff8c5a;
+            --light-gray: #f4f6f8;
+            --medium-gray: #e0e4e8;
+            --dark-gray: #333333;
+            --text-gray: #555555;
+            --white: #ffffff;
+            --black: #000000;
+            --success-green: #28a745;
+            --error-red: #dc3545;
+            --warning-yellow: #ffc107;
+
+            --font-heading: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 24px;
+
+            --box-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --box-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --box-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+            --transition-fast: 0.15s ease;
+            --transition-medium: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-heading);
+            color: var(--text-gray);
+            line-height: 1.7;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-left { text-align: left; }
+
+        .d-flex { display: flex; }
+        .flex-column { flex-direction: column; }
+        .align-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-3 { margin-top: 1rem; }
+        .mt-4 { margin-top: 1.5rem; }
+        .mt-5 { margin-top: 3rem; }
+
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 1rem; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        .mb-5 { margin-bottom: 3rem; }
+
+        .p-3 { padding: 1rem; }
+        .p-4 { padding: 1.5rem; }
+        .p-5 { padding: 3rem; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            border: none;
+            font-size: 1rem;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-orange);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--navy-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-sm);
+        }
+
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--navy-blue);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--medium-gray);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.875rem;
+        }
+
+        .btn-lg {
+            padding: 14px 32px;
+            font-size: 1.125rem;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--box-shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--accent-orange);
+            font-size: 28px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            color: var(--navy-blue);
+            font-size: 1.5rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: calc(100vh - 120px);
+            padding: 40px 0;
+        }
+
+        /* Code Viewer Container */
+        .code-viewer-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        @media (min-width: 992px) {
+            .code-viewer-container {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            color: var(--navy-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-orange);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: var(--border-radius-md);
+            color: var(--navy-blue);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(10, 36, 99, 0.1);
+            color: var(--accent-orange);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Code Editor */
+        .code-editor {
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--box-shadow-md);
+        }
+
+        .editor-header {
+            background-color: var(--navy-blue);
+            color: var(--white);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .editor-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .editor-body {
+            position: relative;
+        }
+
+        #codeInput {
+            width: 100%;
+            min-height: 500px;
+            padding: 20px;
+            border: none;
+            font-family: var(--font-code);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            border: 1px solid var(--medium-gray);
+            border-top: none;
+            border-bottom-left-radius: var(--border-radius-lg);
+            border-bottom-right-radius: var(--border-radius-lg);
+            resize: vertical;
+            tab-size: 4;
+        }
+
+        /* Code Output */
+        .code-output {
+            margin-top: 30px;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--box-shadow-md);
+        }
+
+        .output-header {
+            background-color: var(--navy-blue);
+            color: var(--white);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .output-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .output-content {
+            padding: 20px;
+            background-color: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-top: none;
+            border-bottom-left-radius: var(--border-radius-lg);
+            border-bottom-right-radius: var(--border-radius-lg);
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* Report Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-medium);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--box-shadow-lg);
+            transform: translateY(20px);
+            transition: var(--transition-medium);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--navy-blue);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-gray);
+            transition: var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            color: var(--accent-orange);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--navy-blue);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-heading);
+            transition: var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--medium-gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+            color: var(--success-green);
+        }
+
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            color: var(--error-red);
+        }
+
+        .alert-warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            color: var(--warning-yellow);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--navy-blue);
+            color: var(--white);
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 10px;
+        }
+
+        .footer-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .footer-link a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .editor-actions {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+
+            .btn {
+                padding: 8px 16px;
+            }
+        }
+
+        /* Syntax Highlighting (Basic) */
+        .token.comment {
+            color: #6a9955;
+        }
+        .token.keyword {
+            color: #569cd6;
+        }
+        .token.string {
+            color: #ce9178;
+        }
+        .token.number {
+            color: #b5cea8;
+        }
+        .token.function {
+            color: #dcdcaa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-between align-center">
+                <a href="/" class="logo">
+                    <i class="fas fa-code logo-icon"></i>
+                    <span class="logo-text">NextEdge Code Viewer</span>
+                </a>
+                <div class="d-flex gap-3">
+                    <button id="runCode" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Run Code
+                    </button>
+                    <button id="reportBtn" class="btn btn-secondary">
+                        <i class="fas fa-flag"></i> Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="text-center">Interactive Code Viewer</h1>
+            <p class="text-center mb-5">Paste your code below to view and test it. Report any issues to our support team.</p>
+
+            <div class="code-viewer-container">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <h3 class="sidebar-title">Navigation</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#html-editor" class="nav-link active">
+                                <i class="fab fa-html5"></i> HTML Editor
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#css-editor" class="nav-link">
+                                <i class="fab fa-css3-alt"></i> CSS Editor
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#js-editor" class="nav-link">
+                                <i class="fab fa-js"></i> JavaScript Editor
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#output" class="nav-link">
+                                <i class="fas fa-window-maximize"></i> Output
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h3 class="sidebar-title mt-4">Resources</h3>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-book"></i> Documentation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-question-circle"></i> Help Center
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-code-branch"></i> Examples
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <!-- Main Editor Area -->
+                <div class="editor-area">
+                    <!-- HTML Editor -->
+                    <div class="code-editor" id="html-editor">
+                        <div class="editor-header">
+                            <div class="editor-title">
+                                <i class="fab fa-html5"></i>
+                                <span>HTML</span>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="btn btn-sm" title="Format Code">
+                                    <i class="fas fa-indent"></i>
+                                </button>
+                                <button class="btn btn-sm" title="Clear">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <textarea id="htmlInput" class="form-control" placeholder="Paste your HTML code here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- CSS Editor -->
+                    <div class="code-editor mt-4" id="css-editor">
+                        <div class="editor-header">
+                            <div class="editor-title">
+                                <i class="fab fa-css3-alt"></i>
+                                <span>CSS</span>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="btn btn-sm" title="Format Code">
+                                    <i class="fas fa-indent"></i>
+                                </button>
+                                <button class="btn btn-sm" title="Clear">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <textarea id="cssInput" class="form-control" placeholder="Paste your CSS code here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- JavaScript Editor -->
+                    <div class="code-editor mt-4" id="js-editor">
+                        <div class="editor-header">
+                            <div class="editor-title">
+                                <i class="fab fa-js"></i>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="btn btn-sm" title="Format Code">
+                                    <i class="fas fa-indent"></i>
+                                </button>
+                                <button class="btn btn-sm" title="Clear">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <textarea id="jsInput" class="form-control" placeholder="Paste your JavaScript code here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Output -->
+                    <div class="code-output mt-4" id="output">
+                        <div class="output-header">
+                            <div class="output-title">
+                                <i class="fas fa-window-maximize"></i>
+                                <span>Output</span>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="btn btn-sm" title="Refresh">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                                <button class="btn btn-sm" title="Fullscreen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="output-content" id="codeOutput">
+                            <p class="text-center text-muted">Your output will appear here after running the code.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Report Modal -->
+    <div class="modal-overlay" id="reportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Report Code Issue</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Important:</strong> Please describe the issue you're experiencing with the code.
+                        Our team will review it and contact you if needed.
+                    </div>
+                </div>
+
+                <form id="reportForm">
+                    <div class="form-group">
+                        <label for="reportName" class="form-label">Your Name</label>
+                        <input type="text" id="reportName" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportEmail" class="form-label">Email Address</label>
+                        <input type="email" id="reportEmail" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportType" class="form-label">Issue Type</label>
+                        <select id="reportType" class="form-control" required>
+                            <option value="">Select issue type</option>
+                            <option value="bug">Code Bug</option>
+                            <option value="security">Security Concern</option>
+                            <option value="performance">Performance Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportDescription" class="form-label">Description</label>
+                        <textarea id="reportDescription" class="form-control" required
+                                  placeholder="Please describe the issue in detail..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="d-flex align-center">
+                            <input type="checkbox" id="includeCode" checked>
+                            <label for="includeCode" class="ml-2">Include my current code in the report</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelReport">Cancel</button>
+                <button class="btn btn-primary" id="submitReport">
+                    <i class="fas fa-paper-plane"></i> Submit Report
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>NextEdge Code Viewer</h3>
+                    <p>A powerful tool for testing and sharing code snippets with our support team.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="btn btn-sm">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Documentation</a></li>
+                        <li class="footer-link"><a href="#">API Reference</a></li>
+                        <li class="footer-link"><a href="#">Code Examples</a></li>
+                        <li class="footer-link"><a href="#">Tutorials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:support@technologist.com">support@technologist.com</a></li>
+                        <li class="footer-link"><a href="mailto:backend@technologist.com">backend@technologist.com</a></li>
+                        <li class="footer-link"><a href="mailto:ict@technologist.com">ict@technologist.com</a></li>
+                        <li class="footer-link"><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 NextEdge IT Service. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const htmlInput = document.getElementById('htmlInput');
+            const cssInput = document.getElementById('cssInput');
+            const jsInput = document.getElementById('jsInput');
+            const codeOutput = document.getElementById('codeOutput');
+            const runCodeBtn = document.getElementById('runCode');
+            const reportBtn = document.getElementById('reportBtn');
+            const reportModal = document.getElementById('reportModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelReport = document.getElementById('cancelReport');
+            const submitReport = document.getElementById('submitReport');
+            const reportForm = document.getElementById('reportForm');
+            const includeCode = document.getElementById('includeCode');
+
+            // Run Code Function
+            function runCode() {
+                const html = htmlInput.value;
+                const css = cssInput.value;
+                const js = jsInput.value;
+
+                // Create iframe for clean output
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+
+                // Clear previous output
+                codeOutput.innerHTML = '';
+                codeOutput.appendChild(iframe);
+
+                // Get iframe document
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                // Write code to iframe
+                iframeDoc.open();
+                iframeDoc.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>${css}</style>
+                    </head>
+                    <body>
+                        ${html}
+                        <script>${js}<\/script>
+                    </body>
+                    </html>
+                `);
+                iframeDoc.close();
+            }
+
+            // Toggle Modal
+            function toggleModal() {
+                reportModal.classList.toggle('active');
+                document.body.style.overflow = reportModal.classList.contains('active') ? 'hidden' : '';
+            }
+
+            // Submit Report
+            function submitReportForm() {
+                const name = document.getElementById('reportName').value;
+                const email = document.getElementById('reportEmail').value;
+                const type = document.getElementById('reportType').value;
+                const description = document.getElementById('reportDescription').value;
+
+                // Validate form
+                if (!name || !email || !type || !description) {
+                    alert('Please fill all required fields');
+                    return;
+                }
+
+                // Prepare report data
+                const reportData = {
+                    name,
+                    email,
+                    type,
+                    description,
+                    code: includeCode.checked ? {
+                        html: htmlInput.value,
+                        css: cssInput.value,
+                        js: jsInput.value
+                    } : null,
+                    timestamp: new Date().toISOString()
+                };
+
+                // In a real app, you would send this to your backend
+                console.log('Report submitted:', reportData);
+
+                // Simulate sending email (in production, use AJAX to your server)
+                const emailBody = `
+                    New Code Issue Report:
+
+                    Name: ${name}
+                    Email: ${email}
+                    Issue Type: ${type}
+
+                    Description:
+                    ${description}
+
+                    ${includeCode.checked ? `
+                    Code Included:
+                    HTML:
+                    ${htmlInput.value}
+
+                    CSS:
+                    ${cssInput.value}
+
+                    JavaScript:
+                    ${jsInput.value}
+                    ` : 'No code was included in this report.'}
+                `;
+
+                // Show success message
+                alert(`Report submitted successfully!\n\nA copy has been sent to:\nsupport@technologist.com\nbackend@technologist.com\nict@technologist.com`);
+
+                // Close modal
+                toggleModal();
+
+                // Reset form
+                reportForm.reset();
+            }
+
+            // Event Listeners
+            runCodeBtn.addEventListener('click', runCode);
+            reportBtn.addEventListener('click', toggleModal);
+            closeModal.addEventListener('click', toggleModal);
+            cancelReport.addEventListener('click', toggleModal);
+            submitReport.addEventListener('click', submitReportForm);
+
+            // Close modal when clicking outside
+            reportModal.addEventListener('click', function(e) {
+                if (e.target === reportModal) {
+                    toggleModal();
+                }
+            });
+
+            // Sample code for demonstration
+            htmlInput.value = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample Page</title>
+</head>
+<body>
+    <h1>Welcome to NextEdge Code Viewer</h1>
+    <p>Try editing this code and click "Run Code" to see the changes.</p>
+    <button id="demoBtn">Click Me</button>
+    <div id="output"></div>
+</body>
+</html>`;
+
+            cssInput.value = `body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1 {
+    color: #0A2463;
+    border-bottom: 2px solid #FF6B35;
+    padding-bottom: 10px;
+}
+
+button {
+    background: #FF6B35;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0A2463;
+}`;
+
+            jsInput.value = `document.getElementById('demoBtn').addEventListener('click', function() {
+    document.getElementById('output').innerHTML =
+        '<p>Button clicked! This is dynamic JavaScript output.</p>';
+
+    // Change button text
+    this.textContent = 'Clicked!';
+
+    // Disable button after click
+    this.disabled = true;
+});`;
+        });
+    </script>
+</body>
+</html>
