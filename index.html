@@ -1709,6 +1709,71 @@
                 right: -20px;
             }
         }
+        /* Saiyara Movies Music Section */
+        .saiyara-music {
+            text-align: center;
+            margin-bottom: 60px;
+            cursor: pointer;
+        }
+
+        .saiyara-music img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Singer Profiles Section */
+        .singer-profiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .singer-profile {
+            text-align: center;
+        }
+
+        .singer-profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .singer-profile h3 {
+            margin-bottom: 10px;
+        }
+
+        .singer-profile audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Old Songs Section */
+        .old-songs {
+            margin-bottom: 60px;
+        }
+
+        .song {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .song audio {
+            width: 100%;
+        }
+
+        .song-details {
+            margin-left: 20px;
+        }
+
+        .song-details h3 {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
@@ -2131,6 +2196,88 @@
                 </div>
             </div>
         </section>
+
+        <!-- ======= New Music Sections ======= -->
+        <div class="container">
+
+            <!-- Saiyara Movies Music Section -->
+            <section class="saiyara-music" onclick="document.getElementById('saiyara-audio').play()">
+                <h2>Saiyara Movies Music</h2>
+                <img src="https://via.placeholder.com/600x400.png?text=Saiyara+Movie+Animation" alt="Saiyara Movie Animation">
+                <audio id="saiyara-audio" src="saiyara.mp3"></audio>
+            </section>
+
+            <!-- Singer Profiles Section -->
+            <section class="singer-profiles">
+                <h2>Singer Profiles</h2>
+
+                <div class="singer-profile">
+                    <img src="https://via.placeholder.com/150.png?text=Justin+Bieber" alt="Justin Bieber">
+                    <h3>Justin Bieber</h3>
+                    <audio controls src="peaches.mp3"></audio>
+                    <audio controls src="sorry.mp3"></audio>
+                    <audio controls src="love_yourself.mp3"></audio>
+                </div>
+
+                <div class="singer-profile">
+                    <img src="https://via.placeholder.com/150.png?text=Shreya+Ghoshal" alt="Shreya Ghoshal">
+                    <h3>Shreya Ghoshal</h3>
+                    <audio controls src="teri_ore.mp3"></audio>
+                    <audio controls src="sun_raha_hai.mp3"></audio>
+                    <audio controls src="manwa_laage.mp3"></audio>
+                </div>
+
+                <div class="singer-profile">
+                    <img src="https://via.placeholder.com/150.png?text=Eminem" alt="Eminem">
+                    <h3>Eminem</h3>
+                    <audio controls src="mockingbird.mp3"></audio>
+                </div>
+
+                <div class="singer-profile">
+                    <img src="https://via.placeholder.com/150.png?text=Atif+Aslam" alt="Atif Aslam">
+                    <h3>Atif Aslam</h3>
+                    <audio controls src="tera_hone_laga_hoon.mp3"></audio>
+                    <audio controls src="jeene_laga_hoon.mp3"></audio>
+                    <audio controls src="woh_lamhe.mp3"></audio>
+                </div>
+
+                <div class="singer-profile">
+                    <img src="https://via.placeholder.com/150.png?text=Arijit+Singh" alt="Arijit Singh">
+                    <h3>Arijit Singh</h3>
+                    <audio controls src="tum_hi_ho.mp3"></audio>
+                    <audio controls src="channa_mereya.mp3"></audio>
+                    <audio controls src="hawale_kardiya.mp3"></audio>
+                </div>
+            </section>
+
+            <!-- Old Songs Section -->
+            <section class="old-songs">
+                <h2>Old Songs</h2>
+
+                <div class="song">
+                    <audio controls src="saiyara_old.mp3"></audio>
+                    <div class="song-details">
+                        <h3>Saiyara – Tu Toh Badla Nahi (Old Version)</h3>
+                    </div>
+                </div>
+
+                <div class="song">
+                    <audio controls src="dekha_ek_khwab.mp3"></audio>
+                    <div class="song-details">
+                        <h3>Dekha Ek Khwab (Old Classic Version)</h3>
+                    </div>
+                </div>
+
+                <div class="song">
+                    <audio controls src="hawale_kardiya_arijit.mp3"></audio>
+                    <div class="song-details">
+                        <h3>Hawale Kardiya - Arijit Singh</h3>
+                        <p>Lyrics will be displayed here...</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
 
         <!-- ======= Contact Section ======= -->
         <section id="contact">
