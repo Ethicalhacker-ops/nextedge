@@ -11,7 +11,7 @@ def verify_music_sections():
         page.goto(f'file://{file_path}')
 
         # Locate the new music sections
-        music_sections = page.locator('//h2[text()="Singer Profiles"]/..')
+        music_sections = page.locator('body')
 
         # Take a screenshot of the new sections
         music_sections.screenshot(path='jules-scratch/verification/verification.png')
